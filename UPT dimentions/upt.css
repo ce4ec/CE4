@@ -28,5 +28,14 @@ body {
 #important {
     display: block;
     text-align: center;
-    color: greenyellow;
+    color: rgb(109, 85, 194);
+}
+
+#plus01, #plus02 {
+    width: 60px;
+    height: 60px;
+}
+
+#plus01_1, #plus02_1 {
+    color: rgb(95, 68, 133);
 }

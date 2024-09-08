@@ -39,7 +39,12 @@ function upt1cw() {
         }
         // 새로운 loop 시작
         loop = setInterval(() => { upt1cwhp(); }, 100);
-        fc += 10;
+        if (fc == 1){
+          fc += 9;
+        }
+        else{
+          fc += 10;
+        }
         fc2 += 1;
     }
 }

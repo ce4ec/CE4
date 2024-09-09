@@ -71,52 +71,43 @@ function UPT3_1() {
 
   target.innerHTML = displayText;
 }
-
+  
 function UPT4_1() {
-  const target = document.querySelector("h2#upt1cw4");
-  let multiplier;
-
-  if (fc2 < 10) {
-      multiplier = 1.03; // fc2가 10 미만일 때 배율 1.03배
-  } else if (fc2 >= 10 && fc2 < 20) {
-      multiplier = 2.06; // fc2가 10 이상 20 미만일 때 배율 2.06배
-  } else if (fc2 >= 20 && fc2 < 30) {
-      multiplier = 4.12; // fc2가 20 이상 30 미만일 때 배율 4.12배
-  } else {
-      // 30 이상부터 적용
-      let baseMultiplier = 4.12; // 기본 배율 (30 이상부터 시작)
-      let increment = 30; // 시작 범위
-
-      // fc2가 30 이상일 때 배율을 2.02배씩 증가
-      while (fc2 >= increment) {
-          baseMultiplier *= 2.02; // 배율은 2.02배씩 증가
-          increment += 10; // 범위는 10씩 증가
-      }
-      multiplier = baseMultiplier;
+    const target = document.querySelector("h2#upt1cw4");
+    let multiplier;
+  
+    if (fc2 < 10) {
+        multiplier = 1.03; // fc2가 10 미만일 때 배율 1.03배
+    } else {
+        // fc2가 10 이상일 때 배율을 2배씩 증가
+        let baseMultiplier = 1.03; // 초기 배율
+        let increment = 10; // 배율을 2배씩 증가시키는 시작 범위
+  
+        while (fc2 >= increment) {
+            baseMultiplier *= 2; // 배율을 2배씩 증가
+            increment += 10; // 범위는 10씩 증가
+        }
+        multiplier = baseMultiplier;
+    }
+  
+    let displayText;
+    if (multiplier < 1000) {
+        // 배율이 1000 미만일 때는 소수점 둘째 자리까지 표시
+        displayText = "현재 배율 : " + multiplier.toFixed(2) + "배";
+    } else {
+        // 배율이 1000 이상일 때는 지수 표기법으로 변환하되 소수점 둘째 자리까지 반올림
+        let exponent = Math.floor(Math.log10(multiplier));
+        let mantissa = multiplier / Math.pow(10, exponent);
+  
+        // 소수점 둘째 자리까지 반올림
+        mantissa = mantissa.toFixed(2);
+  
+        displayText = `현재 배율 : ${mantissa}e${exponent}배`;
+    }
+  
+    target.innerHTML = displayText;
   }
-
-  let displayText;
-  if (multiplier < 1000) {
-      // 배율이 1000 미만일 때는 소수점 첫째 자리까지 표시
-      displayText = "현재 배율 : " + multiplier.toFixed(1) + "배";
-  } else {
-      // 배율이 1000 이상일 때는 지수 표기법으로 변환하되 소수점 첫째 자리까지 반올림
-      let exponent = Math.floor(Math.log10(multiplier));
-      let mantissa = multiplier / Math.pow(10, exponent);
-
-      // 소수점 첫째 자리까지 반올림
-      mantissa = mantissa.toFixed(1);
-
-      displayText = `현재 배율 : ${mantissa}e${exponent}배`;
-  }
-
-  target.innerHTML = displayText;
-}
-
-
-
-
-
+  
 function UPT5_1() {
     if (UPT >= fc) {
         const a = document.querySelector("img#upt10");
@@ -175,8 +166,4 @@ function upt1cwhp() {
 
 
 
-
-
-
-// UPT 상태 업데이트를 매 1ms마다 실행
 loop1 = setInterval(() => { UPT1_1(); UPT2_1(); UPT3_1(); UPT4_1(); UPT5_1();}, 1);

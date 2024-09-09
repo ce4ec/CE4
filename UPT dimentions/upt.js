@@ -140,28 +140,38 @@ function upt1cw() {
 }
 
 function upt1cwhp() {
-  let baseIncrement = 10; // 초기 범위 시작 값
-  let multiplier = 0.1; // 초기 증분 값
-
-  if (fc2 < baseIncrement) {
-    // fc2가 10 미만일 때 배율을 1.03배로 적용
-    UPT += (multiplier * fc2 * 1.03);
-  } else {
-    let increment = baseIncrement;
-    let currentMultiplier = 1.03; // 초기 배율
-
-    // 각 구간에서 배율이 2배씩 증가하도록 설정
-    while (fc2 >= increment) {
-      if (fc2 < increment + 10) {
-        // 해당 범위에 맞는 multiplier를 적용하여 UPT를 계산
-        UPT += (multiplier * fc2 * currentMultiplier);
-        break;
+    let baseIncrement = 10; // 초기 범위 시작 값
+    let multiplier = 0.1; // 초기 증분 값
+    let baseMultiplier = 1.03; // 초기 배율
+  
+    if (fc2 < baseIncrement) {
+      // fc2가 10 미만일 때 배율을 1.03배로 적용
+      UPT += (multiplier * fc2 * baseMultiplier);
+    } else {
+      let increment = baseIncrement;
+      let currentMultiplier = baseMultiplier; // 초기 배율
+  
+      // 각 구간에서 배율이 2배씩 증가하도록 설정
+      while (fc2 >= increment) {
+        if (fc2 < increment + 10) {
+          // 10개 이상 20개 미만일 때 배율을 100배로 설정
+          if (fc2 >= 10 && fc2 < 20) {
+            currentMultiplier = 100;
+          }
+          // 20개 이상 30개 미만일 때 배율을 100배로 설정
+          else if (fc2 >= 20 && fc2 < 30) {
+            currentMultiplier = 100;
+          }
+          // 해당 범위에 맞는 multiplier를 적용하여 UPT를 계산
+          UPT += (multiplier * fc2 * currentMultiplier);
+          break;
+        }
+        increment += 10; // 각 구간은 10씩 증가
+        currentMultiplier *= 2; // 각 구간마다 배율을 2배로 증가
       }
-      increment += 10; // 각 구간은 10씩 증가
-      currentMultiplier *= 2; // 각 구간마다 배율을 2배로 증가
     }
   }
-}
+  
 
 
 
